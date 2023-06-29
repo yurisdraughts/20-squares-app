@@ -1,0 +1,11 @@
+$user: "user";
+$program: "program";
+
+$user-color: navy;
+$program-color: ivory;
+$border-color: black;
+
+@mixin active {
+  cursor: pointer;
+  border-color: red;
+}

@@ -1,0 +1,10 @@
+@use "util" as *;
+
+.dice {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  width: 200px;
+  height: 100px;
+  border: 3px solid $border-color;
+}

@@ -1,0 +1,14 @@
+@use "util" as *;
+@use "sass:color";
+
+.#{$program} {
+  background-color: antiquewhite;
+}
+
+.#{$user} {
+  background-color: antiquewhite;
+}
+
+.both {
+  background-color: antiquewhite;
+}

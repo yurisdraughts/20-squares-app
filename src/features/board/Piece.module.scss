@@ -1,0 +1,21 @@
+@use "util" as *;
+
+.piece {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 3px solid $border-color;
+}
+
+.#{$user} {
+  background-color: $user-color;
+}
+
+.#{program} {
+  background-color: $program-color;
+}
+
+.active {
+  @include active;
+}
