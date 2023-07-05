@@ -1,5 +1,5 @@
 import { Piece } from "./Piece"
-import type { Player } from "./boardSlice"
+import type { Player } from "./types"
 import style from "./Space.module.scss"
 import { useAppSelector } from "../../app/hooks"
 

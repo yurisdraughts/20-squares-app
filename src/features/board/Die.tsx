@@ -12,8 +12,13 @@ export function Die({ index }: DieProp) {
 
   const dispatch = useAppDispatch()
 
-  const className = `${style.die} ${style[`die${index}`]} ${style[whoseTurn]}
-  ${diceValues ? "" : style.active}`
+  const disabled = !!diceValues || whoseTurn === "program"
+
+  const hasActiveStyle = !disabled,
+    hasAutoStyle = !diceValues && whoseTurn === "program",
+    className = `${style.die} ${style[`die${index}`]} ${style[whoseTurn]}
+  ${hasActiveStyle ? style.active : ""}
+  ${hasAutoStyle ? style.auto : ""}`
 
   return (
     <button
@@ -21,7 +26,7 @@ export function Die({ index }: DieProp) {
         if (!diceValues) dispatch(castDice())
       }}
       className={className}
-      disabled={!!diceValues}
+      disabled={disabled}
     >
       {diceValues ? diceValues[index] : ""}
     </button>

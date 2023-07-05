@@ -1,8 +1,9 @@
 @use "util" as *;
 
-.container {
+.container1,
+.container2 {
   position: absolute;
-  top: 20%;
+
   width: 100px;
   height: 100px;
   border: 3px solid $border-color;
@@ -16,12 +17,19 @@
   }
 }
 
+.container1 {
+  top: 20%;
+}
+
+.container2 {
+  bottom: 20%;
+  background-color: gold;
+}
+
 .#{$user} {
-  background-color: $program-color;
   left: 15%;
 }
 
 .#{$program} {
-  background-color: $user-color;
   right: 15%;
 }

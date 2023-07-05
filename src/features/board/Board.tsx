@@ -1,7 +1,7 @@
 import { Space } from "./Space"
 import { Dice } from "./Dice"
 import { PieceContainer } from "./PieceContainer"
-import { courseLength, firstCourseTurn, secondCourseTurn } from "./boardSlice"
+import { courseLength, firstCourseTurn, secondCourseTurn } from "./util"
 import style from "./Board.module.scss"
 
 export function Board() {

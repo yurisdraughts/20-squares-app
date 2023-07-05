@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { movePiece } from "./boardSlice"
-import type { Player } from "./boardSlice"
+import type { Player } from "./types"
 import style from "./Piece.module.scss"
 
 type PieceProps = {
@@ -13,12 +13,15 @@ export function Piece({ belongsTo, currentPosition }: PieceProps) {
     whoseTurn = useAppSelector((state) => state.board.whoseTurn),
     movablePieces = useAppSelector(
       (state) => state.board.pieces[belongsTo].movable,
-    )
+    ),
+    randomlySelected = useAppSelector(
+      (state) => state.board.pieces.program.randomlySelected,
+    ) as number | null
 
   let movable = false
   if (
     areDiceCast &&
-    whoseTurn == belongsTo &&
+    whoseTurn === belongsTo &&
     movablePieces &&
     movablePieces[currentPosition]
   ) {
@@ -27,8 +30,16 @@ export function Piece({ belongsTo, currentPosition }: PieceProps) {
 
   const dispatch = useAppDispatch()
 
-  const className = `${style.piece} ${style[belongsTo]}
-  ${movable ? style.active : ""}`
+  const disabled = !movable || whoseTurn === "program"
+
+  const hasActiveStyle = !disabled,
+    hasAutoStyle =
+      belongsTo === "program" &&
+      randomlySelected !== null &&
+      currentPosition === randomlySelected,
+    className = `${style.piece} ${style[belongsTo]}
+  ${hasActiveStyle ? style.active : ""}
+  ${hasAutoStyle ? style.auto : ""}`
 
   return (
     <button
@@ -36,7 +47,7 @@ export function Piece({ belongsTo, currentPosition }: PieceProps) {
       onClick={() => {
         if (movable) dispatch(movePiece({ currentPosition }))
       }}
-      disabled={!movable}
+      disabled={disabled}
     ></button>
   )
 }
