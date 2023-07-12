@@ -1,14 +1,17 @@
 @use "util" as *;
 @use "sass:color";
 
-.#{$program} {
-  background-color: antiquewhite;
-}
+.space {
+  position: relative;
+  width: $space-side;
+  height: $space-side;
+  border: $border-width solid $program-color;
 
-.#{$user} {
-  background-color: antiquewhite;
-}
-
-.both {
-  background-color: antiquewhite;
+  > * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0 0;
+    transform: translate(-50%, -50%);
+  }
 }

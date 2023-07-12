@@ -1,38 +1,56 @@
 @use "util" as *;
 
 .die {
-  position: absolute;
   display: grid;
   place-content: center;
-  top: 10%;
-  width: 50px;
-  height: 50px;
-  border: 3px solid $border-color;
+  
+  border: none;
+  width: calc(1.11 * $space-side);
+  height: calc(1.11 * $space-side);
   font-weight: bold;
 
-  &0 {
-    left: 20%;
+  background: {
+    color: transparent;
+    size: contain;
+    repeat: no-repeat;
   }
 
-  &1 {
-    right: 20%;
+  &_index0 {
+    left: 10%;
+    rotate: (-20deg);
   }
-}
 
-.#{$user} {
-  background-color: $user-color;
-  color: $program-color;
-}
+  &_index1 {
+    right: 10%;
+    rotate: (30deg);
+  }
 
-.#{$program} {
-  background-color: $program-color;
-  color: $user-color;
+  &_value1 {
+    &.user {
+      background-image: url("./assets/Dice/1Light.svg");
+    }
+    
+    &.program {
+      background-image: url("./assets/Dice/1Dark.svg");
+    }
+  }
+
+  &_value2 {
+    &.user {
+      background-image: url("./assets/Dice/2Light.svg");
+    }
+    
+    &.program {
+      background-image: url("./assets/Dice/2Dark.svg");
+    }
+  }
 }
 
 .active {
-  @include active;
+  background-image: url("./assets/Dice/Active.svg");
+  cursor: pointer;
 }
 
 .auto {
-  @include auto;
+  background-image: url("./assets/Dice/Auto.svg");
 }

@@ -16,9 +16,11 @@ export function Die({ index }: DieProp) {
 
   const hasActiveStyle = !disabled,
     hasAutoStyle = !diceValues && whoseTurn === "program",
-    className = `${style.die} ${style[`die${index}`]} ${style[whoseTurn]}
+    className = `${style.die} ${style[whoseTurn]} ${style[`die_index${index}`]}
   ${hasActiveStyle ? style.active : ""}
-  ${hasAutoStyle ? style.auto : ""}`
+  ${hasAutoStyle ? style.auto : ""}
+  ${diceValues && diceValues[index] === 1 ? style[`die_value${1}`] : ""}
+  ${diceValues && diceValues[index] === 2 ? style[`die_value${2}`] : ""}`
 
   return (
     <button
@@ -27,8 +29,6 @@ export function Die({ index }: DieProp) {
       }}
       className={className}
       disabled={disabled}
-    >
-      {diceValues ? diceValues[index] : ""}
-    </button>
+    ></button>
   )
 }

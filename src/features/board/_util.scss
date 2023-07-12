@@ -1,17 +1,40 @@
 $user: "user";
 $program: "program";
 
-$user-color: navy;
-$program-color: ivory;
-$border-color: black;
+$user-color: #e6d7cd;
+$program-color: #2d2d2d;
+$border-width: 3px;
+$gap-width: 4px;
+$space-side: min(10vmin, 65px);
+$bg-color: #424D7A;
 
-@mixin active {
-  cursor: pointer;
-  border-color: firebrick;
-  background-color: crimson;
+@mixin bgi($url) {
+  background: {
+    image: url($url);
+    size: cover;
+  }
 }
 
-@mixin auto {
-  border-color: darkolivegreen;
-  background-color: olivedrab;
+@mixin landscape-small {
+  @media (max-height: 576px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin landscape-large {
+  @media (min-height: 576px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin portrait-small {
+  @media (max-width: 576px) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin small-screen {
+  @media (max-width: 576px) or (max-height: 576px) {
+    @content;
+  }
 }

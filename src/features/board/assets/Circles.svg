@@ -1,0 +1,37 @@
+<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0H45V45H0V0Z" fill="#A58C64"/>
+<path d="M0 0H45V45H0V0Z" fill="#A58C64"/>
+<rect x="2.25" y="2.25001" width="40.2" height="39.9" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="2.25" y="2.25001" width="18.3" height="17.7" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="24.15" y="2.25001" width="18.3" height="17.7" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="24.15" y="24.45" width="18.3" height="17.7" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="2.25" y="24.45" width="18.3" height="17.7" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="2.25" y="2.25001" width="8.4" height="7.5" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="13.05" y="2.25001" width="7.5" height="7.5" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="13.05" y="12.15" width="7.5" height="7.8" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="2.25" y="12.15" width="8.4" height="7.8" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="2.25" y="24.45" width="7.2" height="7.5" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="12.15" y="24.45" width="8.4" height="7.5" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="12.15" y="34.35" width="8.4" height="7.8" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="2.25" y="34.35" width="7.2" height="7.8" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="24.15" y="2.25001" width="8.4" height="8.4" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="34.95" y="2.25001" width="7.5" height="8.4" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="34.95" y="13.35" width="7.5" height="6.6" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="24.15" y="13.35" width="8.4" height="6.6" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="42.45" y="42.15" width="8.4" height="7.5" transform="rotate(-180 42.45 42.15)" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="31.65" y="42.15" width="7.5" height="7.5" transform="rotate(-180 31.65 42.15)" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="31.65" y="32.25" width="7.5" height="7.8" transform="rotate(-180 31.65 32.25)" stroke="#2D2D2D" stroke-width="0.3"/>
+<rect x="42.45" y="32.25" width="8.4" height="7.8" transform="rotate(-180 42.45 32.25)" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="6.45" cy="6.14999" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="16.95" cy="16.05" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="7.35" cy="15.75" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="5.55" cy="28.35" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="16.05" cy="28.35" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="5.85" cy="38.25" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="28.05" cy="28.95" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="38.55" cy="28.95" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="38.55" cy="38.85" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="38.55" cy="6.44998" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="38.55" cy="16.65" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+<circle cx="28.35" cy="16.35" r="2.1" fill="#283273" stroke="#2D2D2D" stroke-width="0.3"/>
+</svg>

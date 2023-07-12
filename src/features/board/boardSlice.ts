@@ -18,13 +18,14 @@ const initialState: BoardState = {
       atStart: 7,
       onBoard: [],
       movable: null,
+      selected: null,
       finished: 0,
     },
     program: {
       atStart: 7,
       onBoard: [],
       movable: null,
-      randomlySelected: null,
+      selected: null,
       finished: 0,
     },
   },
@@ -65,16 +66,17 @@ export const boardSlice = createSlice({
     ) => {
       state.pieces[action.payload.player].movable = action.payload.movablePieces
     },
-    updateRandomlySelectedPieces: (
+    updateSelectedPieces: (
       state,
-      action: PayloadAction<number | null>,
+      action: PayloadAction<{ player: Player; value: number | null }>,
     ) => {
       if (
-        typeof state.pieces.program.randomlySelected === typeof action.payload
+        typeof state.pieces[action.payload.player].selected ===
+        typeof action.payload.value
       ) {
         return
       }
-      state.pieces.program.randomlySelected = action.payload
+      state.pieces[action.payload.player].selected = action.payload.value
     },
     updateFinishedPieces: (
       state,
@@ -90,13 +92,14 @@ export const boardSlice = createSlice({
           atStart: 7,
           onBoard: [],
           movable: null,
+          selected: null,
           finished: 0,
         },
         program: {
           atStart: 7,
           onBoard: [],
           movable: null,
-          randomlySelected: null,
+          selected: null,
           finished: 0,
         },
       }
@@ -111,15 +114,17 @@ const {
   addPieceOnBoard,
   removePieceFromBoard,
   updateMovablePieces,
-  updateRandomlySelectedPieces,
   updateFinishedPieces,
   resetState,
 } = boardSlice.actions
+
+export const { updateSelectedPieces } = boardSlice.actions
 
 export const castDice =
   () => async (dispatch: AppDispatch, getState: () => RootState) => {
     const state = getState().board,
       pieces = state.pieces[state.whoseTurn]
+
     if (state.dice || pieces.movable) return
 
     // Бросаем кости
@@ -234,6 +239,7 @@ export const movePiece =
       )
     }
 
+    dispatch(updateSelectedPieces({ player, value: null }))
     pieces = getState().board.pieces[player]
     if (pieces.finished < 7) {
       dispatch(updateMovablePieces({ player, movablePieces: null }))
@@ -303,13 +309,13 @@ export const programMove =
       const positions = Object.keys(movablePieces)
       position = Number(positions[Math.floor(Math.random() * positions.length)])
     }
-    dispatch(updateRandomlySelectedPieces(position))
+    dispatch(updateSelectedPieces({ player: "program", value: position }))
     // Делаем паузу после выбора позиции
     await timeout()
 
     // Делаем ход
     dispatch(movePiece({ currentPosition: position }))
-    dispatch(updateRandomlySelectedPieces(null))
+    dispatch(updateSelectedPieces({ player: "program", value: null }))
   }
 
 export default boardSlice.reducer

@@ -1,10 +1,36 @@
 @use "util" as *;
 
 .dice {
-  position: absolute;
-  top: 20%;
-  left: 40%;
-  width: 200px;
-  height: 100px;
-  border: 3px solid $border-color;
+  text-align: center;
+  border-spacing: $gap-width;
+
+  th,
+  td {
+    padding: $gap-width;
+  }
+
+  &.user {
+    border: $border-width solid $program-color;
+    background-color: $user-color;
+
+    th {
+      background-color: $program-color;
+      color: $user-color;
+    }
+  }
+
+  &.program {
+    border: $border-width solid $user-color;
+    background-color: $program-color;
+
+    th {
+      background-color: $user-color;
+      color: $program-color;
+    }
+  }
+}
+
+.center {
+  display: grid;
+  place-content: center;
 }

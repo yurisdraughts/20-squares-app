@@ -16,10 +16,34 @@ export function Dice() {
     }
   }, [whoseTurn, diceValues])
 
+  const className = `${style.dice} ${style[whoseTurn]}`
+
   return (
-    <div className={style.dice}>
-      <Die index={0} />
-      <Die index={1} />
-    </div>
+    <table className={className}>
+      <thead>
+        <tr>
+          <th colSpan={2}>Игральные кости:</th>
+        </tr>
+        <tr>
+          <th colSpan={2}>
+            ({whoseTurn === "program" ? "Ход противника" : "Ваш ход"})
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div className={style.center}>
+              <Die index={0} />
+            </div>
+          </td>
+          <td>
+            <div className={style.center}>
+              <Die index={1} />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   )
 }

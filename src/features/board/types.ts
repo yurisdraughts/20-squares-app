@@ -6,7 +6,7 @@ export type Pieces = {
   atStart: number
   onBoard: number[]
   movable: MovablePieces
-  randomlySelected?: number | null
+  selected: number | null
   finished: number
 }
 

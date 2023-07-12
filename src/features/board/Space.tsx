@@ -29,9 +29,25 @@ export function Space({ belongsTo, stepOnCourse }: SpaceProps) {
     if (userHasOnBoard.includes(stepOnCourse)) player = "user"
   }
 
+  const dice = useAppSelector((state) => state.board.dice),
+    whoseTurn = useAppSelector((state) => state.board.whoseTurn),
+    selectedPiece = useAppSelector(
+      (state) => state.board.pieces[whoseTurn].selected,
+    ),
+    isDestination =
+      (belongsTo === whoseTurn || belongsTo === "both") &&
+      dice &&
+      selectedPiece !== null &&
+      stepOnCourse === selectedPiece + dice[0] + dice[1]
+
   return (
-    <div className={style[belongsTo]}>
+    <div className={style.space}>
       {player && <Piece belongsTo={player} currentPosition={stepOnCourse} />}
+      {isDestination ? (
+        <Piece isDestination={true} belongsTo={whoseTurn} currentPosition={stepOnCourse} />
+      ) : (
+        ""
+      )}
     </div>
   )
 }

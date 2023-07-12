@@ -1,6 +1,4 @@
 import { Space } from "./Space"
-import { Dice } from "./Dice"
-import { PieceContainer } from "./PieceContainer"
 import { courseLength, firstCourseTurn, secondCourseTurn } from "./util"
 import style from "./Board.module.scss"
 
@@ -13,10 +11,14 @@ export function Board() {
 
   for (let i = 1; i <= courseLength; i++) {
     if (i < firstCourseTurn) {
-      programRowStart.push(<Space key={i} stepOnCourse={i} belongsTo="program" />)
+      programRowStart.push(
+        <Space key={i} stepOnCourse={i} belongsTo="program" />,
+      )
       playerRowStart.push(<Space key={i} stepOnCourse={i} belongsTo="user" />)
     } else if (i > secondCourseTurn) {
-      programRowFinish.push(<Space key={i} stepOnCourse={i} belongsTo="program" />)
+      programRowFinish.push(
+        <Space key={i} stepOnCourse={i} belongsTo="program" />,
+      )
       playerRowFinish.push(<Space key={i} stepOnCourse={i} belongsTo="user" />)
     } else {
       combatRow.push(<Space key={i} stepOnCourse={i} belongsTo="both" />)
@@ -30,15 +32,10 @@ export function Board() {
   const playerRow = [...playerRowStart.reverse(), ...playerRowFinish.reverse()]
 
   return (
-    <>
-      <Dice />
-      <PieceContainer player="program" />
-      <PieceContainer player="user" />
-      <div className={style.board}>
-        {programRow}
-        {combatRow}
-        {playerRow}
-      </div>
-    </>
+    <div className={style.board}>
+      {programRow}
+      {combatRow}
+      {playerRow}
+    </div>
   )
 }
