@@ -1,19 +1,15 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { movePiece, updateSelectedPieces } from "./boardSlice"
 import type { Player } from "./types"
+import { movePiece, updateSelectedPieces } from "./boardSlice"
 import style from "./Piece.module.scss"
 
-type PieceProps = {
+type Props = {
   belongsTo: Player
   currentPosition: number
   isDestination?: true
 }
 
-export function Piece({
-  belongsTo,
-  currentPosition,
-  isDestination,
-}: PieceProps) {
+export function Piece({ belongsTo, currentPosition, isDestination }: Props) {
   const areDiceCast = Boolean(useAppSelector((state) => state.board.dice)),
     whoseTurn = useAppSelector((state) => state.board.whoseTurn),
     movablePieces = useAppSelector(
@@ -21,7 +17,8 @@ export function Piece({
     ),
     selected = useAppSelector(
       (state) => state.board.pieces.program.selected,
-    ) as number | null
+    ) as number | null,
+    dispatch = useAppDispatch()
 
   let movable = false
   if (
@@ -33,20 +30,19 @@ export function Piece({
     movable = true
   }
 
-  const dispatch = useAppDispatch()
-
-  const disabled = !movable || whoseTurn === "program"
-
-  const hasActiveStyle = !disabled,
+  const disabled = !movable || whoseTurn === "program",
+    hasActiveStyle = !disabled,
     hasAutoStyle =
       belongsTo === "program" &&
       selected !== null &&
-      currentPosition === selected,
-    className = `${style.piece} ${style[belongsTo]} ${
-      style[`piece_position${currentPosition}`]
-    } ${hasActiveStyle ? style.active : ""} ${hasAutoStyle ? style.auto : ""} ${
-      isDestination ? style.destination : ""
-    }`
+      currentPosition === selected
+
+  const className = `${style.piece} ${style[belongsTo]} ${
+    style[`position${currentPosition}`]
+  } ${hasActiveStyle ? style.active : ""} ${hasAutoStyle ? style.auto : ""} ${
+    isDestination ? style.destination : ""
+  }`
+
   const addToSelectedPieces = () => {
       if (whoseTurn === "user") {
         dispatch(
@@ -71,6 +67,7 @@ export function Piece({
       onMouseLeave={clearSelectedPieces}
       onTouchEnd={clearSelectedPieces}
       disabled={disabled}
+      aria-label="Фишка"
     ></button>
   )
 }

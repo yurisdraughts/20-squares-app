@@ -1,41 +1,35 @@
-import { Space } from "./Space"
-import { courseLength, firstCourseTurn, secondCourseTurn } from "./util"
+import { useAppSelector } from "../../app/hooks"
+import { numberOfPieces } from "./util"
+import { TwentySquares } from "./TwentySquares"
+import { Dice } from "./Dice"
+import { PieceContainer } from "./PieceContainer"
+import { ResetButton } from "./ResetButton"
+import { FinalMessage } from "./FinalMessage"
 import style from "./Board.module.scss"
 
 export function Board() {
-  const programRowStart = [],
-    programRowFinish = [],
-    combatRow = [],
-    playerRowStart = [],
-    playerRowFinish = []
-
-  for (let i = 1; i <= courseLength; i++) {
-    if (i < firstCourseTurn) {
-      programRowStart.push(
-        <Space key={i} stepOnCourse={i} belongsTo="program" />,
-      )
-      playerRowStart.push(<Space key={i} stepOnCourse={i} belongsTo="user" />)
-    } else if (i > secondCourseTurn) {
-      programRowFinish.push(
-        <Space key={i} stepOnCourse={i} belongsTo="program" />,
-      )
-      playerRowFinish.push(<Space key={i} stepOnCourse={i} belongsTo="user" />)
-    } else {
-      combatRow.push(<Space key={i} stepOnCourse={i} belongsTo="both" />)
-    }
-  }
-
-  const programRow = [
-    ...programRowStart.reverse(),
-    ...programRowFinish.reverse(),
-  ]
-  const playerRow = [...playerRowStart.reverse(), ...playerRowFinish.reverse()]
+  const isInitialState = useAppSelector((state) => state.board.isInitialState),
+    programFinishedPieces = useAppSelector(
+      (state) => state.board.pieces.program.finished,
+    ),
+    programWon = programFinishedPieces === numberOfPieces,
+    userFinishedPieces = useAppSelector(
+      (state) => state.board.pieces.user.finished,
+    ),
+    userWon = userFinishedPieces === numberOfPieces
 
   return (
-    <div className={style.board}>
-      {programRow}
-      {combatRow}
-      {playerRow}
+    <div className={style.container}>
+      <div className={style.board}>
+        <PieceContainer player="program" />
+        <TwentySquares />
+        <PieceContainer player="user" />
+        <Dice />
+      </div>
+      {!isInitialState && (
+        <ResetButton className={style.restartButton} />
+      )}
+      {(programWon || userWon) && <FinalMessage userWon={userWon} />}
     </div>
   )
 }

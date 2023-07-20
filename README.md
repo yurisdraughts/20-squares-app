@@ -1,27 +1,9 @@
-# vite-template-redux
+# Царская игра Ура
 
-Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
+**«Царская игра Ура»** или **«Игра Ура»**, также известная как **«Игра двадцати квадратов»**, — настольная игра для двух игроков, появившаяся в древней Месопотамии примерно в III тысячелетии до н.э.
 
-```sh
-npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
-```
+Настоящее приложение является попыткой реализовать данную игру для дипломного проекта в рамках курса **Frontend-программист** в [GeekBrains](https://gb.ru/).
 
-## Goals
+Приложение опубликовано на сервисе Netlify по [ссылке](https://20-squares-app.netlify.app/).
 
-- Easy migration from Create React App or Vite
-- As beginner friendly as Create React App
-- Optimized performance compared to Create React App
-- Customizable without ejecting
-
-## Scripts
-
-- `dev`/`start` - start dev server and open browser
-- `build` - build for production
-- `preview` - locally preview production build
-- `test` - launch test runner
-
-## Inspiration
-
-- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
-- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
-- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
+***Стек**: Vite, React, TypeScript, Redux Toolkit, Sass.*

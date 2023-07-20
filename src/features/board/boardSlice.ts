@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import type { AppDispatch, RootState } from "../../app/store"
 import type { BoardState, Dice, MovablePieces, Player } from "./types"
 import {
+  numberOfPieces,
   courseLength,
   firstCourseTurn,
   secondCourseTurn,
@@ -10,19 +11,28 @@ import {
   timeout,
 } from "./util"
 
+// CONTENT:
+// Initial State
+// Slice
+// Action Creators
+// Thunk Functions
+// Reducer
+
+// Initial State
 const initialState: BoardState = {
+  isInitialState: true,
   whoseTurn: "user",
   dice: null,
   pieces: {
     user: {
-      atStart: 7,
+      atStart: numberOfPieces,
       onBoard: [],
       movable: null,
       selected: null,
       finished: 0,
     },
     program: {
-      atStart: 7,
+      atStart: numberOfPieces,
       onBoard: [],
       movable: null,
       selected: null,
@@ -31,14 +41,29 @@ const initialState: BoardState = {
   },
 }
 
+let stateFromLocalStorage: BoardState
+try {
+  const boardState = localStorage.getItem("boardState")
+  if (boardState) {
+    stateFromLocalStorage = JSON.parse(boardState)
+  } else {
+    stateFromLocalStorage = initialState
+  }
+} catch (e) {
+  // The user probably blocks cookies.
+  stateFromLocalStorage = initialState
+}
+
+// Slice
 export const boardSlice = createSlice({
   name: "board",
-  initialState,
+  initialState: stateFromLocalStorage,
   reducers: {
     changeTurns: (state) => {
       state.whoseTurn = getOpponent(state.whoseTurn)
     },
     updateDice: (state, action: PayloadAction<Dice>) => {
+      if (state.isInitialState) state.isInitialState = false
       state.dice = action.payload
     },
     updatePiecesAtStart: (
@@ -89,24 +114,32 @@ export const boardSlice = createSlice({
       state.dice = null
       state.pieces = {
         user: {
-          atStart: 7,
+          atStart: numberOfPieces,
           onBoard: [],
           movable: null,
           selected: null,
           finished: 0,
         },
         program: {
-          atStart: 7,
+          atStart: numberOfPieces,
           onBoard: [],
           movable: null,
           selected: null,
           finished: 0,
         },
       }
+      state.isInitialState = true
+
+      try {
+        localStorage.setItem("boardState", JSON.stringify(state))
+      } catch (e) {
+        // Do nothing. The user probably blocks cookies.
+      }
     },
   },
 })
 
+// Action Creators
 const {
   changeTurns,
   updateDice,
@@ -115,11 +148,11 @@ const {
   removePieceFromBoard,
   updateMovablePieces,
   updateFinishedPieces,
-  resetState,
 } = boardSlice.actions
 
-export const { updateSelectedPieces } = boardSlice.actions
+export const { updateSelectedPieces, resetState } = boardSlice.actions
 
+// Thunk Functions
 export const castDice =
   () => async (dispatch: AppDispatch, getState: () => RootState) => {
     const state = getState().board,
@@ -177,11 +210,19 @@ export const castDice =
         updateMovablePieces({ player: state.whoseTurn, movablePieces: null }),
       )
       dispatch(updateDice(null))
-      console.log(`${state.whoseTurn} skipped turn`)
       dispatch(changeTurns())
     } else {
       dispatch(updateMovablePieces({ player: state.whoseTurn, movablePieces }))
       dispatch(updateDice(dice))
+    }
+
+    const newState = getState().board
+    if (newState.whoseTurn === "user") {
+      try {
+        localStorage.setItem("boardState", JSON.stringify(newState))
+      } catch (e) {
+        // Do nothing. The user probably blocks cookies.
+      }
     }
   }
 
@@ -217,11 +258,6 @@ export const movePiece =
         dispatch(
           updatePiecesAtStart({ player: getOpponent(player), change: 1 }),
         )
-        console.log(
-          `${state.whoseTurn} removed a ${getOpponent(
-            state.whoseTurn,
-          )}'s piece from the board`,
-        )
       }
 
       dispatch(removePieceFromBoard({ player, piece: currentPosition }))
@@ -232,11 +268,6 @@ export const movePiece =
       dispatch(updateFinishedPieces({ player }))
 
       pieces = getState().board.pieces[player]
-      console.log(
-        `${state.whoseTurn}'s piece finished its course, ${
-          pieces.atStart + pieces.onBoard.length
-        } pieces remain`,
-      )
     }
 
     dispatch(updateSelectedPieces({ player, value: null }))
@@ -247,13 +278,16 @@ export const movePiece =
       if (!rosettes.includes(destination)) {
         // Передаем ход противнику, если не оказались сами на клетке с "розеткой"
         dispatch(changeTurns())
-      } else {
-        console.log(`${state.whoseTurn} gets a second turn`)
       }
-    } else {
-      // Отмечаем победу
-      console.log(`${state.whoseTurn} won!`)
-      dispatch(resetState())
+    }
+
+    const newState = getState().board
+    if (newState.whoseTurn === "user") {
+      try {
+        localStorage.setItem("boardState", JSON.stringify(newState))
+      } catch (e) {
+        // Do nothing. The user probably blocks cookies.
+      }
     }
   }
 
@@ -316,6 +350,13 @@ export const programMove =
     // Делаем ход
     dispatch(movePiece({ currentPosition: position }))
     dispatch(updateSelectedPieces({ player: "program", value: null }))
+
+    try {
+      localStorage.setItem("boardState", JSON.stringify(getState().board))
+    } catch (e) {
+      // Do nothing. The user probably blocks cookies.
+    }
   }
 
+// Reducer
 export default boardSlice.reducer

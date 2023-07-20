@@ -1,14 +1,13 @@
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { programMove } from "./boardSlice"
 import { Die } from "./Die"
 import style from "./Dice.module.scss"
-import { programMove } from "./boardSlice"
 
 export function Dice() {
   const diceValues = useAppSelector((state) => state.board.dice),
-    whoseTurn = useAppSelector((state) => state.board.whoseTurn)
-
-  const dispatch = useAppDispatch()
+    whoseTurn = useAppSelector((state) => state.board.whoseTurn),
+    dispatch = useAppDispatch()
 
   useEffect(() => {
     if (whoseTurn === "program" && !diceValues) {

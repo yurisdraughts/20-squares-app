@@ -1,40 +1,15 @@
-$user: "user";
-$program: "program";
+@forward "../../util";
+@use "../../util" as *;
 
-$user-color: #e6d7cd;
-$program-color: #2d2d2d;
-$border-width: 3px;
+$user-color: $main-color;
+$program-color: $text-color;
+
 $gap-width: 4px;
-$space-side: min(10vmin, 65px);
-$bg-color: #424D7A;
+$space-side: min(10vmin, $block-size);
 
-@mixin bgi($url) {
+@mixin background-image($url) {
   background: {
     image: url($url);
     size: cover;
-  }
-}
-
-@mixin landscape-small {
-  @media (max-height: 576px) and (orientation: landscape) {
-    @content;
-  }
-}
-
-@mixin landscape-large {
-  @media (min-height: 576px) and (orientation: landscape) {
-    @content;
-  }
-}
-
-@mixin portrait-small {
-  @media (max-width: 576px) and (orientation: portrait) {
-    @content;
-  }
-}
-
-@mixin small-screen {
-  @media (max-width: 576px) or (max-height: 576px) {
-    @content;
   }
 }

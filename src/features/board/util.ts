@@ -1,6 +1,7 @@
 import type { Player } from "./types"
 
-export const courseLength = 14,
+export const numberOfPieces = 7,
+  courseLength = 14,
   firstCourseTurn = 5,
   secondCourseTurn = 12
 

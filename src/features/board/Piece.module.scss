@@ -1,5 +1,5 @@
-@use "util" as *;
 @use "sass:math";
+@use "util" as *;
 
 $light-piece-url: url("./assets/LightPiece.svg");
 $dark-piece-url: url("./assets/DarkPiece.svg");
@@ -49,24 +49,25 @@ $dark-piece-url: url("./assets/DarkPiece.svg");
 }
 
 @for $i from 1 through 20 {
-  .piece_position#{$i}.user {
+  .position#{$i}.user {
     rotate: 45deg * math.cos($i * 49deg);
   }
 
-  .piece_position#{$i}.program {
+  .position#{$i}.program {
     rotate: 45deg * math.cos($i * 50deg);
   }
 }
 
 .active {
+  @include scale-transition;
   background-image: none;
-  background-color: crimson;
-  border-color: firebrick;
+  background-color: $user-background-color;
+  border-color: $user-border-color;
   cursor: pointer;
 }
 
 .auto {
   background-image: none;
-  border-color: darkolivegreen;
-  background-color: olivedrab;
+  border-color: $program-border-color;
+  background-color: $program-background-color;
 }

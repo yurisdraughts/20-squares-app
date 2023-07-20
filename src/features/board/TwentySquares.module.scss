@@ -1,0 +1,86 @@
+@use "util" as *;
+
+.board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: $gap-width;
+
+  border: $border-width solid $program-color;
+  padding: $gap-width;
+  width: fit-content;
+  background-color: $user-color;
+
+  &::before,
+  &::after {
+    position: absolute;
+    left: calc($space-side * 4 + $gap-width * 5);
+
+    display: block;
+    content: "";
+    box-sizing: border-box;
+
+    border: $border-width solid $program-color;
+    width: calc($space-side * 2 + $gap-width);
+    height: calc($space-side + $gap-width + $border-width);
+
+    background-color: $background-color;
+  }
+
+  &::before {
+    top: -1 * $border-width + 0.2px;
+    border-top: none;
+  }
+
+  &::after {
+    bottom: -1 * $border-width + 0.2px;
+    border-bottom: none;
+  }
+
+  > :nth-child(5),
+  > :nth-child(19) {
+    grid-column-start: 7;
+  }
+
+  > :where(
+      :nth-child(1),
+      :nth-child(5),
+      :nth-child(10),
+      :nth-child(15),
+      :nth-child(19)
+    ) {
+    @include background-image("./assets/Rosette.svg");
+  }
+
+  > :where(
+      :nth-child(2),
+      :nth-child(4),
+      :nth-child(13),
+      :nth-child(16),
+      :nth-child(18)
+    ) {
+    @include background-image("./assets/4Eyes.svg");
+  }
+
+  > :where(
+      :nth-child(3),
+      :nth-child(8),
+      :nth-child(11),
+      :nth-child(14),
+      :nth-child(17)
+    ) {
+    @include background-image("./assets/5Eyes.svg");
+  }
+
+  > :where(:nth-child(6), :nth-child(20)) {
+    @include background-image("./assets/1Zigzag.svg");
+  }
+
+  > :nth-child(7) {
+    @include background-image("./assets/Circles.svg");
+  }
+
+  > :where(:nth-child(9), :nth-child(12)) {
+    @include background-image("./assets/4Zigzags.svg");
+  }
+}

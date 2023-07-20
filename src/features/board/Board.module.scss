@@ -1,86 +1,63 @@
 @use "util" as *;
+@use "sass:math";
 
 .board {
-  position: relative;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: $gap-width;
+  place-content: center;
+  place-items: stretch;
+  gap: 1vmin;
+  padding: 0 $large-gap;
+  height: 100vh;
+  background-color: $background-color;
 
-  border: $border-width solid $program-color;
-  padding: $gap-width;
-  width: fit-content;
-  background-color: $user-color;
-
-  &::before,
-  &::after {
-    position: absolute;
-    left: calc($space-side * 4 + $gap-width * 5);
-
-    display: block;
-    content: "";
-    box-sizing: border-box;
-
-    border: 3px solid $program-color;
-    width: calc($space-side * 2 + $gap-width);
-    height: calc($space-side + $gap-width + $border-width);
-
-    background-color: $bg-color;
+  > :nth-child(2) {
+    place-self: center;
   }
 
-  &::before {
-    top: -1 * $border-width + 0.2px;
-    border-top: none;
+  @include landscape-small {
+    grid-template-columns: repeat(2, auto);
+
+    > :not(:nth-child(2)) {
+      align-self: stretch;
+    }
   }
 
-  &::after {
-    bottom: -1 * $border-width + 0.2px;
-    border-bottom: none;
-  }
+  @include landscape-large {
+    grid-template-columns: repeat(2, auto);
 
-  > :nth-child(5),
-  > :nth-child(19) {
-    grid-column-start: 7;
-  }
+    > :where(:nth-child(1), :nth-child(2)) {
+      grid-column: span 2;
+    }
 
-  > :where(
-      :nth-child(1),
-      :nth-child(5),
-      :nth-child(10),
-      :nth-child(15),
-      :nth-child(19)
-    ) {
-    @include bgi("./assets/Rosette.svg");
+    > :nth-child(4) {
+      grid-column: 1;
+      grid-row: 3;
+    }
   }
+}
 
-  > :where(
-      :nth-child(2),
-      :nth-child(4),
-      :nth-child(13),
-      :nth-child(16),
-      :nth-child(18)
-    ) {
-    @include bgi("./assets/4Eyes.svg");
-  }
+.container {
+  position: relative;
+}
 
-  > :where(
-      :nth-child(3),
-      :nth-child(8),
-      :nth-child(11),
-      :nth-child(14),
-      :nth-child(17)
-    ) {
-    @include bgi("./assets/5Eyes.svg");
-  }
+.restartButton {
+  @include button;
+  position: absolute;
+  top: math.div($small-gap, 1vw) * 1vh;
+  right: $small-gap;
+  font-size: 1rem;
+  cursor: pointer;
 
-  > :where(:nth-child(6), :nth-child(20)) {
-    @include bgi("./assets/1Zigzag.svg");
+  &_finalMessage {
+    position: static;
   }
+}
 
-  > :nth-child(7) {
-    @include bgi("./assets/Circles.svg");
-  }
-
-  > :where(:nth-child(9), :nth-child(12)) {
-    @include bgi("./assets/4Zigzags.svg");
-  }
+.finalMessage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
 }

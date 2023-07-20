@@ -1,0 +1,127 @@
+@use "sass:math";
+@use "../../util" as *;
+
+$border: $border-width solid $main-color;
+
+@mixin text-decoration-transition {
+  @include transition(text-decoration-color, currentcolor, transparent);
+}
+
+.italic {
+  font-style: italic;
+}
+
+.playerColor {
+  -webkit-text-stroke: 1px $user-border-color;
+  color: $user-background-color;
+}
+
+.programColor {
+  -webkit-text-stroke: 1px $program-border-color;
+  color: $program-background-color;
+}
+
+.header,
+.footer {
+  padding: 0.5em;
+  min-height: $block-size;
+  background-color: $text-color;
+  color: $main-color;
+  text-align: center;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  border-bottom: $border;
+
+  &__heading {
+    font-size: 2rem;
+  }
+
+  &__button {
+    @include button;
+    display: inline-block;
+    margin-top: 0.5em;
+    text-decoration: none;
+  }
+
+  &__container {
+    padding-bottom: $block-size;
+  }
+}
+
+.content {
+  display: grid;
+  gap: $large-gap;
+  padding: math.div($block-size, 3) $large-gap 0;
+  font-size: 1.1rem;
+
+  &__section {
+    display: grid;
+    gap: $large-gap;
+  }
+
+  &__paragraph {
+    &:not(:last-child) {
+      margin-bottom: $small-gap;
+    }
+
+    &::first-letter {
+      font-size: 1.4em;
+    }
+  }
+
+  &__link {
+    @include text-decoration-transition();
+    text-decoration-style: double;
+    color: $text-color;
+    font-style: normal;
+  }
+}
+
+.fig {
+  border: $border-width solid $text-color;
+  max-width: min(100%, $breakpoint);
+  background-color: $text-color;
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &__caption {
+    padding: 0.5em;
+    color: $main-color;
+  }
+
+  &__link {
+    @include text-decoration-transition();
+    color: $main-color;
+  }
+}
+
+@media (min-width: $breakpoint) {
+  .header {
+    display: flex;
+    align-items: baseline;
+    border-right: $border;
+    max-width: 80vw;
+
+    &__button {
+      margin-top: 0;
+      margin-left: 1em;
+    }
+  }
+
+  .content {
+    &__section {
+      grid-template-columns: repeat(2, 1fr);
+      align-items: start;
+      justify-items: center;
+      gap: $small-gap;
+    }
+  }
+}

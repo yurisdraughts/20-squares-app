@@ -14,39 +14,40 @@
     size: contain;
     repeat: no-repeat;
   }
+}
 
-  &_index0 {
-    left: 10%;
-    rotate: (-20deg);
+.index0 {
+  left: 10%;
+  rotate: (-20deg);
+}
+
+.index1 {
+  right: 10%;
+  rotate: (30deg);
+}
+
+.value1 {
+  &.user {
+    background-image: url("./assets/Dice/1Light.svg");
   }
-
-  &_index1 {
-    right: 10%;
-    rotate: (30deg);
+  
+  &.program {
+    background-image: url("./assets/Dice/1Dark.svg");
   }
+}
 
-  &_value1 {
-    &.user {
-      background-image: url("./assets/Dice/1Light.svg");
-    }
-    
-    &.program {
-      background-image: url("./assets/Dice/1Dark.svg");
-    }
+.value2 {
+  &.user {
+    background-image: url("./assets/Dice/2Light.svg");
   }
-
-  &_value2 {
-    &.user {
-      background-image: url("./assets/Dice/2Light.svg");
-    }
-    
-    &.program {
-      background-image: url("./assets/Dice/2Dark.svg");
-    }
+  
+  &.program {
+    background-image: url("./assets/Dice/2Dark.svg");
   }
 }
 
 .active {
+  @include scale-transition;
   background-image: url("./assets/Dice/Active.svg");
   cursor: pointer;
 }

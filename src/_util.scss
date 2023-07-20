@@ -1,0 +1,65 @@
+$main-color: #e6d7cd;
+$text-color: #2d2d2d;
+$background-color: #424d7a;
+
+$user-background-color: crimson;
+$user-border-color: firebrick;
+$program-background-color: olivedrab;
+$program-border-color: darkolivegreen;
+
+$breakpoint: 576px;
+$block-size: 65px;
+$border-width: 3px;
+
+$large-gap: 5vw;
+$small-gap: 2vw;
+
+@mixin transition($property, $initial-value, $on-hover-value) {
+  #{$property}: $initial-value;
+  transition: $property ease-in-out 0.3s;
+
+  &:hover {
+    #{$property}: $on-hover-value;
+  }
+}
+
+@mixin background-color-transition($color) {
+  @include transition(background-color, $color, lighten($color, 10%));
+}
+
+@mixin scale-transition {
+  @include transition(scale, 1, 1.1);
+}
+
+@mixin button {
+  border: $border-width solid;
+  padding: 0.1em 0.4em 0.2em;
+  font-weight: bold;
+  color: $main-color;
+  border-color: $user-border-color;
+  @include background-color-transition($user-background-color);
+}
+
+@mixin landscape-small {
+  @media (max-height: $breakpoint) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin landscape-large {
+  @media (min-height: $breakpoint) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin portrait-small {
+  @media (max-width: $breakpoint) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin small-screen {
+  @media (max-width: $breakpoint) or (max-height: $breakpoint) {
+    @content;
+  }
+}

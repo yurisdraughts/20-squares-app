@@ -10,9 +10,12 @@ export type Pieces = {
   finished: number
 }
 
-export type Dice = [1 | 2, 1 | 2] | null
+type Die = 1 | 2
+
+export type Dice = [Die, Die] | null
 
 export type BoardState = {
+  isInitialState: boolean
   whoseTurn: Player
   dice: Dice
   pieces: { [P in Player]: Pieces }

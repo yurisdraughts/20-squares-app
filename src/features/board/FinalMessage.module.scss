@@ -1,0 +1,41 @@
+@use "util" as *;
+
+.message {
+  border: $border-width solid $text-color;
+  padding: 1em;
+  font-size: 2rem;
+  background-color: $main-color;
+}
+
+.win {
+  -webkit-text-stroke: 1px $user-border-color;
+  color: $user-background-color;
+}
+
+.lose {
+  -webkit-text-stroke: 1px $program-border-color;
+  color: $program-background-color;
+}
+
+.container {
+  display: grid;
+  gap: $large-gap;
+  place-content: center;
+  justify-items: center;
+
+  &_win {
+    background-image: radial-gradient(
+      $background-color 0,
+      $background-color 50%,
+      $user-border-color 100%
+    );
+  }
+
+  &_lose {
+    background-image: radial-gradient(
+      $background-color 0,
+      $background-color 50%,
+      $program-border-color 100%
+    );
+  }
+}

@@ -1,5 +1,4 @@
 import { useAppSelector } from "../../app/hooks"
-import { Piece } from "./Piece"
 import {
   courseLength,
   firstCourseTurn,
@@ -7,12 +6,11 @@ import {
   getOpponent,
 } from "./util"
 import type { Player } from "./types"
+import { Piece } from "./Piece"
 import style from "./PieceContainer.module.scss"
 import pieceStyle from "./Piece.module.scss"
 
-type PieceContainerProps = { player: Player }
-
-export function PieceContainer({ player }: PieceContainerProps) {
+export function PieceContainer({ player }: { player: Player }) {
   const piecesAtStart = useAppSelector(
       (state) => state.board.pieces[player].atStart,
     ),
@@ -28,8 +26,9 @@ export function PieceContainer({ player }: PieceContainerProps) {
     selectedByOpponent = useAppSelector(
       (state) => state.board.pieces[getOpponent(player)].selected,
     ),
-    dice = useAppSelector((state) => state.board.dice),
-    willFinish =
+    dice = useAppSelector((state) => state.board.dice)
+
+  const willFinish =
       dice &&
       selectedPiece &&
       selectedPiece + dice[0] + dice[1] === courseLength + 2,

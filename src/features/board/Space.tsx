@@ -1,18 +1,15 @@
-import { Piece } from "./Piece"
-import type { Player } from "./types"
-import style from "./Space.module.scss"
 import { useAppSelector } from "../../app/hooks"
+import type { Player } from "./types"
+import { Piece } from "./Piece"
+import style from "./Space.module.scss"
 
-type SpaceOwner = Player | "both"
-
-type SpaceProps = {
-  belongsTo: SpaceOwner
+type Props = {
+  belongsTo: Player | "both"
   stepOnCourse: number
 }
 
-export function Space({ belongsTo, stepOnCourse }: SpaceProps) {
+export function Space({ belongsTo, stepOnCourse }: Props) {
   let player: Player | null = null
-
   if (belongsTo == "program" || belongsTo == "both") {
     const programHasOnBoard = useAppSelector(
       (state) => state.board.pieces.program.onBoard,
@@ -20,7 +17,6 @@ export function Space({ belongsTo, stepOnCourse }: SpaceProps) {
 
     if (programHasOnBoard.includes(stepOnCourse)) player = "program"
   }
-
   if (belongsTo == "user" || belongsTo == "both") {
     const userHasOnBoard = useAppSelector(
       (state) => state.board.pieces.user.onBoard,
@@ -33,18 +29,23 @@ export function Space({ belongsTo, stepOnCourse }: SpaceProps) {
     whoseTurn = useAppSelector((state) => state.board.whoseTurn),
     selectedPiece = useAppSelector(
       (state) => state.board.pieces[whoseTurn].selected,
-    ),
-    isDestination =
-      (belongsTo === whoseTurn || belongsTo === "both") &&
-      dice &&
-      selectedPiece !== null &&
-      stepOnCourse === selectedPiece + dice[0] + dice[1]
+    )
+
+  const isDestination =
+    (belongsTo === whoseTurn || belongsTo === "both") &&
+    dice &&
+    selectedPiece !== null &&
+    stepOnCourse === selectedPiece + dice[0] + dice[1]
 
   return (
     <div className={style.space}>
       {player && <Piece belongsTo={player} currentPosition={stepOnCourse} />}
       {isDestination ? (
-        <Piece isDestination={true} belongsTo={whoseTurn} currentPosition={stepOnCourse} />
+        <Piece
+          isDestination={true}
+          belongsTo={whoseTurn}
+          currentPosition={stepOnCourse}
+        />
       ) : (
         ""
       )}
